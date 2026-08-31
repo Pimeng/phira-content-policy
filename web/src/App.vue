@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
 import BrowseControls from "./components/BrowseControls.vue";
+import ExternalLinkDialog from "./components/ExternalLinkDialog.vue";
 import ReportDialog from "./components/ReportDialog.vue";
 import SearchBar from "./components/SearchBar.vue";
 import ScrollJumpButtons from "./components/ScrollJumpButtons.vue";
@@ -65,6 +66,7 @@ function clearFilters(): void {
       <p>数据有误，或想补充内容？<ReportDialog />。</p>
     </footer>
 
+    <ExternalLinkDialog />
     <ScrollJumpButtons />
   </div>
 </template>
