@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { RightsHolderHit } from "../search/index";
 import StatusBadge from "./StatusBadge.vue";
+import TrackDetailsDialog from "./TrackDetailsDialog.vue";
 
 defineProps<{ hit: RightsHolderHit }>();
 </script>
@@ -16,6 +17,12 @@ defineProps<{ hit: RightsHolderHit }>();
     </header>
     <p v-if="hit.policy.note" class="note">{{ hit.policy.note }}</p>
     <p class="meta">收录 {{ hit.trackCount }} 首曲目</p>
+    <TrackDetailsDialog
+      v-if="hit.tracks.length > 0"
+      :title="`${hit.policy.name} 旗下曲目`"
+      trigger-label="查看旗下曲目"
+      :tracks="hit.tracks"
+    />
   </article>
 </template>
 

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { ArtistHit } from "../search/index";
 import StatusBadge from "./StatusBadge.vue";
+import TrackDetailsDialog from "./TrackDetailsDialog.vue";
 
 defineProps<{ hit: ArtistHit }>();
 
@@ -28,6 +29,13 @@ function isHttpUrl(s: string): boolean {
       <span>{{ hit.artist.reason }}</span>
     </p>
     <p v-if="hit.artist.note" class="note">{{ hit.artist.note }}</p>
+    <p v-if="hit.trackCount > 0" class="meta">关联 {{ hit.trackCount }} 首收录曲目</p>
+    <TrackDetailsDialog
+      v-if="hit.tracks.length > 0"
+      :title="`${hit.artist.name} 关联曲目`"
+      trigger-label="查看关联曲目"
+      :tracks="hit.tracks"
+    />
     <ul v-if="hit.artist.references && hit.artist.references.length > 0" class="refs">
       <li v-for="(r, i) in hit.artist.references" :key="i">
         <a v-if="isHttpUrl(r)" :href="r" target="_blank" rel="noopener noreferrer">{{ r }}</a>
@@ -75,6 +83,10 @@ function isHttpUrl(s: string): boolean {
 .note {
   font-size: 13px;
   color: var(--color-text-secondary);
+}
+.meta {
+  color: var(--color-text-tertiary);
+  font-size: 12px;
 }
 .refs {
   display: flex;
