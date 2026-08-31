@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { RightsHolderHit } from "../search/index";
+import LinkedText from "./LinkedText.vue";
 import StatusBadge from "./StatusBadge.vue";
 import TrackDetailsDialog from "./TrackDetailsDialog.vue";
 
@@ -15,7 +16,7 @@ defineProps<{ hit: RightsHolderHit }>();
       </h3>
       <StatusBadge :status="hit.policy.status" />
     </header>
-    <p v-if="hit.policy.note" class="note">{{ hit.policy.note }}</p>
+    <p v-if="hit.policy.note" class="note"><LinkedText :text="hit.policy.note" /></p>
     <p class="meta">收录 {{ hit.trackCount }} 首曲目</p>
     <TrackDetailsDialog
       v-if="hit.tracks.length > 0"

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ArtistHit } from "../search/index";
+import LinkedText from "./LinkedText.vue";
 import StatusBadge from "./StatusBadge.vue";
 import TrackDetailsDialog from "./TrackDetailsDialog.vue";
 
@@ -28,7 +29,7 @@ function isHttpUrl(s: string): boolean {
       <span class="reason-label">原因</span>
       <span>{{ hit.artist.reason }}</span>
     </p>
-    <p v-if="hit.artist.note" class="note">{{ hit.artist.note }}</p>
+    <p v-if="hit.artist.note" class="note"><LinkedText :text="hit.artist.note" /></p>
     <p v-if="hit.trackCount > 0" class="meta">关联 {{ hit.trackCount }} 首收录曲目</p>
     <TrackDetailsDialog
       v-if="hit.tracks.length > 0"

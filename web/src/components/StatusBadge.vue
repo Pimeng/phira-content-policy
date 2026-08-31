@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { nextTick, onBeforeUnmount, ref, useId } from "vue";
+import { computed, nextTick, onBeforeUnmount, ref, useId } from "vue";
 import type { Status } from "../data/schema";
+import { linkedTextToPlainText } from "../utils/linkedText";
+import LinkedText from "./LinkedText.vue";
 
 const props = defineProps<{ status: Status; note?: string }>();
 const trigger = ref<HTMLElement | null>(null);
@@ -14,6 +16,9 @@ const labels: Record<Status, string> = {
   restricted: "受限",
   free: "可用",
 };
+const accessibleLabel = computed(() =>
+  props.note ? `${labels[props.status]}：${linkedTextToPlainText(props.note)}` : undefined,
+);
 
 function clearHideTimer(): void {
   if (hideTimer !== undefined) {
@@ -78,7 +83,7 @@ function hideTooltip(): void {
 
 function scheduleHide(): void {
   clearHideTimer();
-  hideTimer = setTimeout(hideTooltip, 180);
+  hideTimer = setTimeout(hideTooltip, 500);
 }
 
 onBeforeUnmount(hideTooltip);
@@ -91,7 +96,7 @@ onBeforeUnmount(hideTooltip);
     :class="{ 'has-tooltip': props.note }"
     :tabindex="props.note ? 0 : undefined"
     :aria-describedby="props.note ? tooltipId : undefined"
-    :aria-label="props.note ? `${labels[status]}：${props.note}` : undefined"
+    :aria-label="accessibleLabel"
     @pointerenter="showTooltip"
     @pointerleave="scheduleHide"
     @focus="showTooltip"
@@ -111,8 +116,10 @@ onBeforeUnmount(hideTooltip);
       role="tooltip"
       @pointerenter="clearHideTimer"
       @pointerleave="scheduleHide"
+      @focusin="clearHideTimer"
+      @focusout="scheduleHide"
     >
-      {{ props.note }}
+      <LinkedText :text="props.note" />
     </span>
   </span>
 </template>

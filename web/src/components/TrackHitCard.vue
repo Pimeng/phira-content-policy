@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import type { TrackHit } from "../search/index";
+import LinkedText from "./LinkedText.vue";
 import StatusBadge from "./StatusBadge.vue";
 
 const props = defineProps<{ hit: TrackHit }>();
@@ -39,7 +40,7 @@ const compositeLabel = computed(() => {
         <span class="dim-label">曲目自身</span>
         <template v-if="hit.track.status">
           <StatusBadge :status="hit.track.status" />
-          <p v-if="hit.track.note" class="dim-note">{{ hit.track.note }}</p>
+          <p v-if="hit.track.note" class="dim-note"><LinkedText :text="hit.track.note" /></p>
         </template>
         <span v-else class="dim-inherit">继承版权方</span>
       </li>
@@ -48,7 +49,9 @@ const compositeLabel = computed(() => {
         <span class="dim-label">所属版权方</span>
         <StatusBadge :status="hit.origin.policy.status" />
         <span class="dim-id mono">{{ hit.origin.id }}</span>
-        <p v-if="hit.origin.policy.note" class="dim-note">{{ hit.origin.policy.note }}</p>
+        <p v-if="hit.origin.policy.note" class="dim-note">
+          <LinkedText :text="hit.origin.policy.note" />
+        </p>
       </li>
       <li v-else class="dim">
         <span class="dim-label">所属版权方</span>
@@ -67,7 +70,7 @@ const compositeLabel = computed(() => {
             <span class="dim-id">{{ la.artist.name }}</span>
             <span class="dim-id mono">/{{ la.id }}</span>
           </span>
-          <p v-if="la.artist.note" class="dim-note">{{ la.artist.note }}</p>
+          <p v-if="la.artist.note" class="dim-note"><LinkedText :text="la.artist.note" /></p>
         </template>
         <template v-else>
           <span class="dim-empty">数据库未收录</span>
