@@ -96,6 +96,11 @@ artist = "K-forest"
 section = "通常"
 
 [[track]]
+name = "Gungnir Fracture"
+artist = "Kry.exe"
+section = "通常"
+
+[[track]]
 name = "Crave Wave"
 artist = "LandRoot"
 section = "通常"
@@ -136,6 +141,11 @@ artist = "rider"
 section = "通常"
 
 [[track]]
+name = "星拂云锦 feat. koi"
+artist = "S9ryne"
+section = "通常"
+
+[[track]]
 name = "Distorted Fate"
 artist = "Sakuzyo"
 section = "通常"
@@ -148,6 +158,11 @@ section = "通常"
 [[track]]
 name = "Igallta"
 artist = "Se-U-Ra"
+section = "通常"
+
+[[track]]
+name = "夢の降る日に"
+artist = "seatrus"
 section = "通常"
 
 [[track]]
@@ -177,6 +192,11 @@ section = "通常"
 
 [[track]]
 name = "Der Richter"
+artist = "Ωμεγα"
+section = "通常"
+
+[[track]]
+name = "Der Schneid"
 artist = "Ωμεγα"
 section = "通常"
 
